@@ -1,0 +1,25 @@
+--- a/com/mojang/renderpearl/backend/opengl/GlPipelineRecompiler.java
++++ b/com/mojang/renderpearl/backend/opengl/GlPipelineRecompiler.java
+@@ -173,17 +_,18 @@
+                     case 11:
+                         Spvc.spvc_compiler_set_name(compiler, resource.id(), String.format(Locale.ROOT, "_uniform_%02d_%02d", descriptorSet, binding));
+                         break;
+-                    case 9:
+-                        String blockName = "_push_constants_instance";
++                    case 9: {
++                        String pushConstantsBlockName = "_push_constants_instance";
+                         if (SHADER_DEBUG_MODE) {
+                             String existingBlockName = Spvc.spvc_compiler_get_name(compiler, resource.base_type_id());
+                             if (existingBlockName != null) {
+-                                blockName = existingBlockName;
++                                pushConstantsBlockName = existingBlockName;
+                             }
+                         }
+ 
+-                        Spvc.spvc_compiler_set_name(compiler, resource.id(), blockName);
++                        Spvc.spvc_compiler_set_name(compiler, resource.id(), pushConstantsBlockName);
+                         Spvc.spvc_compiler_set_name(compiler, resource.base_type_id(), "_push_constants");
++                    }
+                 }
+             }
+         }
