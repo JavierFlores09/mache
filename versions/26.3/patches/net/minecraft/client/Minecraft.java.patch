@@ -1,0 +1,22 @@
+--- a/net/minecraft/client/Minecraft.java
++++ b/net/minecraft/client/Minecraft.java
+@@ -65,9 +_,9 @@
+ import java.util.Optional;
+ import java.util.UUID;
+ import java.util.concurrent.CompletableFuture;
+-import java.util.concurrent.CompletionStage;
+ import java.util.concurrent.TimeUnit;
+ import java.util.function.Consumer;
++import java.util.function.Supplier;
+ import net.minecraft.ChatFormatting;
+ import net.minecraft.CrashReport;
+ import net.minecraft.CrashReportCategory;
+@@ -2564,7 +_,7 @@
+     }
+ 
+     public CompletableFuture<Void> delayTextureReload() {
+-        return this.<CompletableFuture<Void>>submit(this::reloadResourcePacks).thenCompose(result -> (CompletionStage<Void>)result);
++        return this.submit((Supplier<CompletableFuture<Void>>)this::reloadResourcePacks).thenCompose(result -> result);
+     }
+ 
+     public void updateReportEnvironment(final ReportEnvironment environment) {

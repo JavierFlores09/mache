@@ -1,0 +1,13 @@
+--- a/net/minecraft/client/resources/palette/PalettedTextureManager.java
++++ b/net/minecraft/client/resources/palette/PalettedTextureManager.java
+@@ -55,7 +_,9 @@
+         this.baseTextureCache = CacheBuilder.newBuilder()
+             .expireAfterAccess(Duration.ofMinutes(5L))
+             .maximumSize(64L)
+-            .removalListener(notification -> ((Optional)notification.getValue()).ifPresent(PalettedTextureManager.BaseTexture::close))
++            .<Identifier, Optional<PalettedTextureManager.BaseTexture>>removalListener(
++                notification -> notification.getValue().ifPresent(PalettedTextureManager.BaseTexture::close)
++            )
+             .build(new CacheLoader<Identifier, Optional<PalettedTextureManager.BaseTexture>>() {
+                 @Override
+                 public Optional<PalettedTextureManager.BaseTexture> load(final Identifier id) {
